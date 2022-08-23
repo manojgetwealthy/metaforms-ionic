@@ -27,9 +27,16 @@ export default class FormControl extends BaseFormControl {
                 <div className="row">
                     {
                         meta.options && meta.options.map((option, index) => {
-                            return <div className="col" key={index}>
-                                    <IonButton expand="block" fill="outline">{option.label}</IonButton>
+                            const color = meta.value === option.value ? 'primary' : 'medium';
+                            return (
+                                <div className="col" key={index}>
+                                    <IonButton color={color} expand="block" fill="outline" size="large"
+                                        onClick={()=>{
+                                            this.handleChange('', option.value);
+                                        }}
+                                    >{option.label}</IonButton>
                                 </div>
+                            )
                         })
                     }
                 </div>
@@ -37,20 +44,18 @@ export default class FormControl extends BaseFormControl {
         )
     }
     search(): JSX.Element {
-        const meta = this.props.form;
-        const option = this.props.form.value ? this.props.form.options?.find(op => op.value === this.props.form.value) : {label:''};
         return (
-            <IonItem>
-                <IonLabel position="floating">{meta.displayName}</IonLabel>
-                <IonInput value={option?.label} id="open-modal" placeholder={meta.displayName}></IonInput>
-                <Search 
-                    context={this.context}
-                    field={this.field}
-                    form={this.props.form}
-                    section={this.props.section}
-                    sync={this.props.sync}
-                />
-            </IonItem>
+            <Search 
+                context={this.context}
+                field={this.field}
+                form={this.props.form}
+                handleChange={(e: any)=>{
+                    const value = e.currentTarget.value;
+                    this.handleChange(e, value);
+                }}
+                section={this.props.section}
+                sync={this.props.sync}
+            />
         )
     }
     input(type: "text" | "number" | "email" | "password") {
@@ -88,8 +93,8 @@ export default class FormControl extends BaseFormControl {
         return (
                 <IonRadioGroup value={meta.value}>
                     {
-                        meta.options && meta.options.map(option => 
-                            <IonItem>
+                        meta.options && meta.options.map((option, index: number) => 
+                            <IonItem key={option.value}>
                                 <IonLabel>{option.label}</IonLabel>
                                 <IonRadio slot="start" value={option.value} />
                             </IonItem>
@@ -103,8 +108,8 @@ export default class FormControl extends BaseFormControl {
         return (
             <>
             {
-                meta.options && meta.options.map(option => 
-                    <IonItem>
+                meta.options && meta.options.map((option, index: number) => 
+                    <IonItem key={option.value}>
                         <IonLabel>{option.label}</IonLabel>
                         <IonCheckbox color="primary" checked={option.value === meta.value ? true : undefined} slot="start" value={option.value}></IonCheckbox>
                     </IonItem>
@@ -120,7 +125,7 @@ export default class FormControl extends BaseFormControl {
                 <IonLabel position="floating">{meta.displayName}</IonLabel>
                 <IonSelect placeholder={"Select " + meta.displayName} value={meta.value}>
                     {
-                        meta.options && meta.options.map(option => <IonSelectOption value={option.value}>{option.label}</IonSelectOption>)
+                        meta.options && meta.options.map(option => <IonSelectOption key={option.value} value={option.value}>{option.label}</IonSelectOption>)
                     }
                 </IonSelect>
             </IonItem>
