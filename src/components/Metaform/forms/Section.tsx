@@ -1,4 +1,4 @@
-import { IonHeader } from "@ionic/react";
+import { IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 import { FormFieldRenderer, IField } from "@manojadams/metaforms-core";
 import React, { useEffect, useState } from "react";
 
@@ -15,8 +15,10 @@ export default function Section(props: any) {
     };
     return (
         <div className={props.activeIndex===props.index?'tab-pane active':'tab-pane'} id={props.section.name} role="tabpanel" aria-labelledby="contact-tab">
-            <IonHeader>
-                <h3>{props?.section?.meta?.displayName}</h3>
+            <IonHeader slot="start">
+                <IonToolbar>
+                    <IonTitle size="large">{props?.section?.meta?.displayName}</IonTitle>
+                </IonToolbar>
             </IonHeader>
             <div className="row">
             {

@@ -30,7 +30,7 @@ export default class FormControl extends BaseFormControl {
                             const color = meta.value === option.value ? 'primary' : 'medium';
                             return (
                                 <div className="col" key={index}>
-                                    <IonButton color={color} expand="block" fill="outline" size="large"
+                                    <IonButton className="meta-radio-btn" color={color} expand="block" fill="outline" size="large"
                                         onClick={()=>{
                                             this.handleChange('', option.value);
                                         }}
