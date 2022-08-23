@@ -21,21 +21,24 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import ExploreContainer from './components/ExploreContainer';
+import ExploreContainer2 from './components/ExploreContainer2';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
+    {/* <IonReactRouter> */}
+      {/* <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
+      </IonRouterOutlet> */}
+    <ExploreContainer />
+    {/* </IonReactRouter> */}
   </IonApp>
 );
 
